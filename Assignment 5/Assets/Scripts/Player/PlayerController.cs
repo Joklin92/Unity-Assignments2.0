@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         if(col.gameObject.tag == "Door") {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            Scenemanager.instance.NextScene();
         }
     }
 
