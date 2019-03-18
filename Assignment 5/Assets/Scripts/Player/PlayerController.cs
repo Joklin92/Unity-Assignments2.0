@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour {
@@ -6,68 +7,64 @@ public class PlayerController : MonoBehaviour {
     public static PlayerController instance;
     public Animator animator;
 
-    public Rigidbody2D playerBody;
+    public Rigidbody2D rb;
 
     private int health;
     public float speed = 10f;
-    public float horizontalMove = 0f; 
-    
+    public float horizontalMove = 0f;
+    bool isMoving;
+
     void Awake() {
         if(instance != null) {
             instance = this;
         }
+   //     cameraRotation = transform.rotation;
     }
 
     void Start() {
-        playerBody = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
     
     void Update() {
-
-        //   if (canMove) {
+        
         horizontalMove = Input.GetAxisRaw("Horizontal") * speed;
-
-          //  playerBody.velocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * speed;
-        playerBody.velocity = new Vector2(horizontalMove, Input.GetAxisRaw("Vertical") * speed);
-        animator.SetFloat("Speed", Mathf.Abs(horizontalMove)); 
-/*  
-        } else {
-            playerBody.velocity = Vector2.zero;
-        }*/
-
-
-        if (Input.GetKeyDown("left") || Input.GetKeyDown("a")) {
-            //move left
-            Debug.Log("Moving left");
-        } else if (Input.GetKeyDown("right") || Input.GetKeyDown("d")) {
-            //move right
-            Debug.Log("Moving right");
-        } else if (Input.GetKeyDown("up") || Input.GetKeyDown("w")) {
-            //Jump
-            Debug.Log("Jumping");
-        } else if (Input.GetKeyDown("down") || Input.GetKeyDown("s")) {
-            //crouch
-            Debug.Log("Crouching");
+        
+        if(horizontalMove < 0 && isMoving) {
+            Vector3 theScale = transform.localScale;
+            theScale.x *= -1;
+            transform.localScale = theScale;
         }
+         rb.velocity = new Vector2(horizontalMove, Input.GetAxisRaw("Vertical") * speed);
+        //rb.velocity = new Vector2(horizontalMove, 0);
+        animator.SetFloat("Speed", Mathf.Abs(horizontalMove));   
 
-        if(Input.GetKeyDown(KeyCode.K)) {
-            Die();
-        }
 
     }
 
-    private void OnCollisionEnter(Collision col) {
-        if(col.gameObject.name == "Enemy") {
+    private void OnTriggerEnter2D(Collider2D col) {
+
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D col) {
+        if(col.gameObject.tag == "Enemy") {
+            Debug.Log("You were killed by a: " + col.gameObject.name);
             Die();
+        }
+
+        if (col.gameObject.tag == "PowerUp") {
+            Debug.Log(col.gameObject.name +" Aquired");
+            Destroy(col.gameObject);
+        }
+
+        if(col.gameObject.tag == "Door") {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 
     void Die() {
-        Debug.Log("Die");
-
         animator.SetBool("Dead", true);
-        this.enabled = false;
-
+        enabled = false;
     }
 
 }
