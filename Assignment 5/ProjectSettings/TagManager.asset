@@ -11,6 +11,7 @@ TagManager:
   - HeadBox
   - Key
   - LockedDoor
+  - Spikes
   layers:
   - Default
   - TransparentFX

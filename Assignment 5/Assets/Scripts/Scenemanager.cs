@@ -16,6 +16,18 @@ public class Scenemanager : MonoBehaviour {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    public void LoadMenu() {
+        SceneManager.LoadScene(0);
+    }
+
+    public void RestartGame() {
+        SceneManager.LoadScene(1);
+    }
+
+    public void RestartCurrentLevel() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     public void ExitGame() {
         Application.Quit();
     }

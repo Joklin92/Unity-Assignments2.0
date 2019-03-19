@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
 public class PlayerMovement : MonoBehaviour {
@@ -11,9 +12,16 @@ public class PlayerMovement : MonoBehaviour {
 
     public float speed = 40f;
     float horizontalMove = 0f;
+
     bool jump = false;
-    bool immortal = false;
-    
+    public bool immortal = false;
+
+    public bool copperKeyObtained = false;
+    public bool silverKeyObtained = false;
+    public bool goldenKeyObtained = false;
+
+    public GameObject keyTextPanel;
+
     void Update() {
 
        horizontalMove = Input.GetAxisRaw("Horizontal") * speed;
@@ -35,33 +43,72 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void OnCollisionEnter2D(Collision2D col) {
-        if (col.gameObject.tag == "Enemy" && !immortal) {
-            Debug.Log("You were killed by a: " + col.gameObject.name);
-            Die();
-        }
 
-        if (col.gameObject.tag == "PowerUp") {
+        switch(col.gameObject.tag) {
+            case "Enemy":
+                if(!immortal) {
+                    Debug.Log("You were killed by a: " + col.gameObject.name);
+                    StartCoroutine(Die());
+                }
+                break;
 
-            if (col.gameObject.name == "immortalityApple") {
-                StartCoroutine(immortalPU());
-            }
+            case "PowerUp":
+                if (col.gameObject.name == "immortalityApple") {
+                    StartCoroutine(immortalPU());
+                }
 
-            if(col.gameObject.name == "SpeedNugget") {
-                StartCoroutine(SpeedPU());
-            }
+                if (col.gameObject.name == "SpeedNugget") {
+                    StartCoroutine(SpeedPU());
+                }
 
-            Debug.Log(col.gameObject.name + " Aquired");
-            Destroy(col.gameObject);
-        }
+                Debug.Log(col.gameObject.name + " Aquired");
+                Destroy(col.gameObject);
+                break;
 
-        if (col.gameObject.tag == "Door")  {
+            case "Door":
             Scenemanager.instance.NextScene();
+                break;
+
+            case "LockedDoor":
+                if(copperKeyObtained && silverKeyObtained && goldenKeyObtained) {
+                    Scenemanager.instance.NextScene();
+                } else {
+                    //   StartCoroutine(MissingKeys());
+                    Scenemanager.instance.RestartCurrentLevel();
+                }
+                break;
+            case "HeadBox":
+                Debug.Log("HeadShot");
+                Destroy(col.gameObject.GetComponentInParent<Transform>());
+                break;
+
+            case "Spikes":
+                StartCoroutine(Die());
+                break;
         }
 
-        if(col.gameObject.tag == "HeadBox") {
-            Debug.Log("HeadShot");
-            Destroy(col.gameObject.GetComponentInParent<Transform>());
+        switch(col.gameObject.name) {
+            case "Copper Key":
+                copperKeyObtained = true;
+                Destroy(col.gameObject);
+                break;
+
+            case "Silver Key":
+                silverKeyObtained = true;
+                Destroy(col.gameObject);
+                break;
+
+            case "Golden Key":
+                goldenKeyObtained = true;
+                Destroy(col.gameObject);
+                break;
         }
+    }
+
+    IEnumerator MissingKeys() {
+        keyTextPanel.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        Scenemanager.instance.RestartCurrentLevel();
     }
 
     IEnumerator SpeedPU() {
@@ -81,8 +128,10 @@ public class PlayerMovement : MonoBehaviour {
         immortal = false;
     }
 
-    public void Die() {        
+    public IEnumerator Die() {        
         animator.SetBool("Dead", true);
         enabled = false;
+        yield return new WaitForSeconds(3f);
+        Scenemanager.instance.RestartGame();
     }
 }
