@@ -8,6 +8,9 @@ TagManager:
   - PowerUp
   - Door
   - WinGameDoor
+  - HeadBox
+  - Key
+  - LockedDoor
   layers:
   - Default
   - TransparentFX
@@ -17,7 +20,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Player
   - 
   - 
   - 
