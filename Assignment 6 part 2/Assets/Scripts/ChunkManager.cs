@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class ChunkManager : MonoBehaviour {
@@ -18,13 +17,11 @@ public class ChunkManager : MonoBehaviour {
     private int amountOfChunksOnScreen = 7;
     private int lastPrefabIndex = 0;
 
-    void Start()
-    {
+    void Start() {
         activeChunks = new List<GameObject>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
-        for (int i = 0; i < amountOfChunksOnScreen; i++)
-        {
+        for (int i = 0; i < amountOfChunksOnScreen; i++) {
             if (i < 2)
                 SpawnTile(0);
             else
@@ -32,17 +29,14 @@ public class ChunkManager : MonoBehaviour {
         }
     }
 
-    void Update()
-    {
-        if (playerTransform.position.z - safeZone > (spawnZ - amountOfChunksOnScreen * chunkLength))
-        {
+    void Update() {
+        if (playerTransform.position.z - safeZone > (spawnZ - amountOfChunksOnScreen * chunkLength)) {
             SpawnTile();
             DeleteTile();
         }
     }
 
-    void SpawnTile(int prefabIndex = -1)
-    {
+    void SpawnTile(int prefabIndex = -1) {
         GameObject go;
 
         if (prefabIndex == -1)
@@ -56,21 +50,19 @@ public class ChunkManager : MonoBehaviour {
         activeChunks.Add(go);
     }
 
-    private void DeleteTile()
-    {
+    private void DeleteTile() {
         Destroy(activeChunks[0]);
         activeChunks.RemoveAt(0);
     }
 
-    private int RandomPrefabIndex()
-    {
-        if (chunkPrefabs.Length <= 1) return 0;
+    private int RandomPrefabIndex() {
+        if (chunkPrefabs.Length <= 1)
+            return 0;
 
         int randomIndex = lastPrefabIndex;
 
-        while (randomIndex == lastPrefabIndex)
-        {
-            randomIndex = UnityEngine.Random.Range(0, chunkPrefabs.Length);
+        while (randomIndex == lastPrefabIndex) {
+            randomIndex = Random.Range(0, chunkPrefabs.Length);
         }
 
         lastPrefabIndex = randomIndex;

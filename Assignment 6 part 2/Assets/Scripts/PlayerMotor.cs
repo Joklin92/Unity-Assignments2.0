@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(Score))]
@@ -16,7 +13,6 @@ public class PlayerMotor : MonoBehaviour {
     private float verticalVelocity = 0f;
     private float gravity = 12f;
     private float animationDuration = 2f;
-    private float startTime;
     private float jumpSpeed = 8f;
 
     private bool isDead = false;
@@ -24,14 +20,13 @@ public class PlayerMotor : MonoBehaviour {
     void Start() {
         Time.timeScale = 1;
         controller = GetComponent<CharacterController>();
-        startTime = Time.time;
     }
     
     void Update() {
 
-        if (isDead)
+        if (isDead) { 
             return;
-
+        }
         if (controller.isGrounded) {
             moveDirection = new Vector3(Input.GetAxis("Horizontal") * speed, 0.0f, speed);
             moveDirection = transform.TransformDirection(moveDirection);
