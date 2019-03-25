@@ -55,8 +55,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\LevelGeneration.cs" />
-    <Compile Include="Assets\Scripts\SpawnObject.cs" />
+    <Compile Include="Assets\DistanceTool\DistanceTool.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Room\LevelGeneration.cs" />
+    <Compile Include="Assets\Scripts\Room\RoomType.cs" />
+    <Compile Include="Assets\Scripts\Room\SpawnObject.cs" />
+    <Compile Include="Assets\Scripts\Room\SpawnRooms.cs" />
+    <None Include="Assets\DistanceTool\READ ME.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/Repos/School Assignments 2.0/Unity-Assignments2.0/Assignment 6 part 1/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
