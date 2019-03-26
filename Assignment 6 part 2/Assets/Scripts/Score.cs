@@ -8,7 +8,7 @@ public class Score : MonoBehaviour {
 
     private int difficultyLevel = 1;
     private int maxDifficultyLevel = 10;
-    private int scoreToNextLevel = 10;
+    private int scoreToNextLevel = 60;
 
     private bool isDead = false;
 
@@ -26,7 +26,7 @@ public class Score : MonoBehaviour {
         scoreText.text = ((int)score).ToString();
     }
 
-    void LevelUp() {
+   void LevelUp() {
 
         if (difficultyLevel == maxDifficultyLevel) return;
 

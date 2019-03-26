@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Assets\DistanceTool\DistanceTool.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerSpawner.cs" />
     <Compile Include="Assets\Scripts\Room\LevelGeneration.cs" />
     <Compile Include="Assets\Scripts\Room\RoomType.cs" />
     <Compile Include="Assets\Scripts\Room\SpawnObject.cs" />

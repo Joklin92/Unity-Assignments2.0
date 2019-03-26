@@ -938,6 +938,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ea912cf02dd63f4999acdf02066d26c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ps: {fileID: 1138108575}
   startingPositions:
   - {fileID: 1034249033}
   - {fileID: 940133647}
@@ -948,6 +949,8 @@ MonoBehaviour:
   - {fileID: 5816462375670142809, guid: ae320da4c38e02143b26f65d01f5259c, type: 3}
   - {fileID: 7180539077657451626, guid: 50208e0cbf7b8eb439ed67f1e3efd142, type: 3}
   - {fileID: 3845996860629020405, guid: ee4484bd816066f46b06bd0be1e42a40, type: 3}
+  firstRoom: {fileID: 8267828785155222242, guid: e3604149481b0c247af4ce9b0676f622,
+    type: 3}
   moveAmount: 10
   minX: 0
   maxX: 20
@@ -1160,6 +1163,52 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   levelGen: {fileID: 921727672}
+--- !u!1 &1138108573
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1138108574}
+  - component: {fileID: 1138108575}
+  m_Layer: 0
+  m_Name: PlayerSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1138108574
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138108573}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1138108575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138108573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a33a706c220cf2c4ba40b8447eec5d94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 9196954101740488905, guid: fff06c11a075170468f4781154e24e9a, type: 3}
+  spawnPoint: {fileID: 6061782939616506149, guid: b710eeb3a454d01448e1a28d0536fde1,
+    type: 3}
 --- !u!1 &1263531942
 GameObject:
   m_ObjectHideFlags: 0

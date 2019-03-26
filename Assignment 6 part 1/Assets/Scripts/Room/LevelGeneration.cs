@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class LevelGeneration : MonoBehaviour {
 
+    public PlayerSpawner ps;
+
     public Transform[] startingPositions;
     public GameObject[] rooms; // index 0 --> LR, index 1 --> LRB, index 2 --> LRT, index 3 --> LRBT
-
+    public GameObject firstRoom;
     private int direction;
     public float moveAmount;
     public float minX;
@@ -27,7 +29,7 @@ public class LevelGeneration : MonoBehaviour {
 
         int randStartingPos = Random.Range(0, startingPositions.Length);
         transform.position = startingPositions[randStartingPos].position;
-        Instantiate(rooms[0], transform.position, Quaternion.identity);
+        Instantiate(firstRoom, transform.position, Quaternion.identity);
 
         direction = Random.Range(1,6);
     }
@@ -121,7 +123,8 @@ public class LevelGeneration : MonoBehaviour {
             } else {
                 Instantiate(end, transform.position, Quaternion.identity);
                 stopGeneration = true;
-            }
+                ps.SpawnPlayer();
+            }            
         }
     }
 }
